@@ -7,17 +7,47 @@
             <div class="row h-100 justify-content-center align-items-center">
               <b-jumbotron>
                 <template #lead>
-                  What is bothering you?
+                  <vue-typer
+                    :text="introMsg"
+                    :repeat="0"
+                    :shuffle="false"
+                    initial-action="typing"
+                    :pre-type-delay="70"
+                    :type-delay="70"
+                    :pre-erase-delay="1000"
+                    :erase-delay="200"
+                    erase-style="backspace"
+                    :erase-on-complete="false"
+                    caret-animation="phase"
+                  ></vue-typer>
                 </template>
 
                 <div class="md-form">
                   <textarea
-                    id="form7"
+                    v-show="a"
+                    id="initialThought"
                     class="md-textarea form-control"
                     rows="3"
-                    v-model="letItGo"
-                  ></textarea>
-                  <label for="form7"></label>
+                    v-model="currentThought"
+                  >
+                  </textarea>
+                  <vue-typer
+                    v-show="!a"
+                    :text="letItGo"
+                    :repeat="0"
+                    :shuffle="false"
+                    initial-action="typing"
+                    :pre-type-delay="1500"
+                    :type-delay="70"
+                    :pre-erase-delay="15000"
+                    :erase-delay="200"
+                    erase-style="backspace"
+                    :erase-on-complete="true"
+                    caret-animation="phase"
+                    @completed="reloadPage"
+                  ></vue-typer>
+
+                  <label for="initialThought"></label>
                 </div>
 
                 <b-button variant="primary" href="" v-on:click="clearForm"
@@ -38,12 +68,29 @@ export default {
   components: {},
   data: function() {
     return {
-      letItGo: "",
+      letItGo: ".",
+      currentThought: "",
+      introMsg: ["What's bothering you?"],
+      afterSubmitMsg: [
+        "You are not these thoughts",
+        "Just breathe",
+        "and",
+        "watch it go away",
+      ],
+      a: true,
     };
   },
   methods: {
     clearForm: function() {
-      this.letItGo = "";
+      this.letItGo = this.currentThought;
+      this.currentThought = "";
+      this.a = false;
+      this.introMsg = this.afterSubmitMsg;
+    },
+    reloadPage() {
+      if (this.a == false) {
+        window.location.reload();
+      }
     },
   },
 };
