@@ -93,6 +93,9 @@ export default {
       }
     },
   },
+  created: function() {
+    console.log(this.letItGo, this.currentThought);
+  },
 };
 </script>
 
