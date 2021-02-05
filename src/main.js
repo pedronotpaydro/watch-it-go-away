@@ -6,8 +6,7 @@ import VueTyperPlugin from "vue-typer";
 
 import App from "./App.vue";
 
-
-Vue.use(VueTyperPlugin)
+Vue.use(VueTyperPlugin);
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 

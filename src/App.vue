@@ -31,21 +31,23 @@
                     v-model="currentThought"
                   >
                   </textarea>
-                  <vue-typer
-                    v-show="!a"
-                    :text="letItGo"
-                    :repeat="0"
-                    :shuffle="false"
-                    initial-action="typing"
-                    :pre-type-delay="1500"
-                    :type-delay="70"
-                    :pre-erase-delay="15000"
-                    :erase-delay="200"
-                    erase-style="backspace"
-                    :erase-on-complete="true"
-                    caret-animation="phase"
-                    @completed="reloadPage"
-                  ></vue-typer>
+                  <div class="md-form">
+                    <vue-typer
+                      v-show="!a"
+                      :text="letItGo"
+                      :repeat="0"
+                      :shuffle="false"
+                      initial-action="typing"
+                      :pre-type-delay="70"
+                      :type-delay="70"
+                      :pre-erase-delay="15000"
+                      :erase-delay="200"
+                      erase-style="backspace"
+                      :erase-on-complete="true"
+                      caret-animation="phase"
+                      @completed="reloadPage"
+                    ></vue-typer>
+                  </div>
 
                   <label for="initialThought"></label>
                 </div>
