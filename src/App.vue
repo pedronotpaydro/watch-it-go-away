@@ -58,6 +58,16 @@
           </div></b-col
         >
       </b-row>
+      <div class="footer">
+        <div class="h2 mb-0">
+          <a href="https://www.linkedin.com/in/hirepaydro/">
+            <b-icon icon="linkedin" shift-h="-1"> </b-icon
+          ></a>
+          <a href="https://github.com/pedronotpaydro">
+            <b-icon icon="github" shift-h="1"></b-icon>
+          </a>
+        </div>
+      </div>
     </b-container>
   </div>
 </template>
@@ -126,5 +136,9 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.footer {
+  position: absolute;
+  bottom: 10px;
 }
 </style>
