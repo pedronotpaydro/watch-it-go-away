@@ -5,57 +5,59 @@
         <b-col
           ><div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
-              <b-jumbotron>
-                <template #lead>
-                  <vue-typer
-                    :text="introMsg"
-                    :repeat="0"
-                    :shuffle="false"
-                    initial-action="typing"
-                    :pre-type-delay="70"
-                    :type-delay="70"
-                    :pre-erase-delay="1000"
-                    :erase-delay="200"
-                    erase-style="backspace"
-                    :erase-on-complete="false"
-                    caret-animation="phase"
-                  ></vue-typer>
-                </template>
-
-                <div class="md-form">
-                  <textarea
-                    v-show="a"
-                    id="initialThought"
-                    class="md-textarea form-control"
-                    rows="3"
-                    v-model="currentThought"
-                  >
-                  </textarea>
-                  <div class="md-form">
+              <transition name="fade">
+                <b-jumbotron v-if="show">
+                  <template #lead>
                     <vue-typer
-                      v-show="!a"
-                      :text="letItGo"
+                      :text="introMsg"
                       :repeat="0"
                       :shuffle="false"
                       initial-action="typing"
                       :pre-type-delay="70"
                       :type-delay="70"
-                      :pre-erase-delay="15000"
+                      :pre-erase-delay="1000"
                       :erase-delay="200"
                       erase-style="backspace"
-                      :erase-on-complete="true"
+                      :erase-on-complete="false"
                       caret-animation="phase"
-                      @completed="reloadPage"
                     ></vue-typer>
+                  </template>
+
+                  <div class="md-form">
+                    <textarea
+                      v-show="a"
+                      id="initialThought"
+                      class="md-textarea form-control"
+                      rows="3"
+                      v-model="currentThought"
+                    >
+                    </textarea>
+                    <div class="md-form">
+                      <vue-typer
+                        v-show="!a"
+                        :text="letItGo"
+                        :repeat="0"
+                        :shuffle="false"
+                        initial-action="typing"
+                        :pre-type-delay="1500"
+                        :type-delay="70"
+                        :pre-erase-delay="13000"
+                        :erase-delay="200"
+                        erase-style="backspace"
+                        :erase-on-complete="true"
+                        caret-animation="phase"
+                        @completed="reloadPage"
+                      ></vue-typer>
+                    </div>
+
+                    <label for="initialThought"></label>
                   </div>
 
-                  <label for="initialThought"></label>
-                </div>
-
-                <b-button variant="primary" href="" v-on:click="clearForm"
-                  >Watch it go away</b-button
-                >
-              </b-jumbotron>
+                  <b-button variant="primary" href="" v-on:click="clearForm"
+                    >Watch it go away</b-button
+                  >
+                </b-jumbotron>
+              </transition>
             </div>
           </div></b-col
         >
@@ -90,6 +92,7 @@ export default {
         "watch it go away",
       ],
       a: true,
+      show: true,
     };
   },
   methods: {
@@ -101,7 +104,12 @@ export default {
     },
     reloadPage() {
       if (this.a == false) {
-        window.location.reload();
+        // setTimeout(window.location.reload(), 5000);
+        this.show = false;
+
+        setTimeout(function() {
+          window.location.reload();
+        }, 2500);
       }
     },
   },
@@ -112,6 +120,15 @@ export default {
 </script>
 
 <style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 2s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
